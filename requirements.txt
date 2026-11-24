@@ -1,0 +1,18 @@
+# CardioPulse receiving-computer software (Python 3.12 recommended)
+# The deployed .keras models were saved with Keras 3.13.2.
+tensorflow==2.20.*
+keras>=3.13
+tensorflow-hub>=0.16
+# tensorflow-hub imports pkg_resources, which setuptools 81+ no longer ships
+setuptools<81
+numpy
+scipy
+librosa
+soundfile
+pandas
+matplotlib
+seaborn
+plotly
+streamlit
+scikit-learn
+pyserial

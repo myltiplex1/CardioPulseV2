@@ -1,0 +1,12 @@
+{
+  "dataset_label": "rechunked_v3",
+  "yamnet_weight": 0.95,
+  "cnn_weight": 0.050000000000000044,
+  "classes": [
+    "Normal",
+    "Murmur",
+    "Extra_Systole",
+    "Artifact"
+  ],
+  "final_test_accuracy": 0.6674816625916871
+}

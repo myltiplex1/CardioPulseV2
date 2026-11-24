@@ -1,0 +1,7 @@
+[browser]
+gatherUsageStats = false
+
+[server]
+# Skips Streamlit's first-run e-mail prompt. Open http://localhost:8501
+# yourself if the browser does not open automatically.
+headless = true
