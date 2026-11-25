@@ -9,11 +9,7 @@ This repository contains the firmware, the receiving-computer software, the trai
 <table>
   <tr>
     <td align="center" width="50%"><img src="docs/images/prototype.jpg" alt="CardioPulse prototype on the elastic chest garment"><br><sub><b>The prototype:</b> electronics enclosure and stethoscope chestpiece on the elastic chest garment</sub></td>
-    <td align="center" width="50%"><img src="docs/images/prototype_bench.jpg" alt="CardioPulse device with its stethoscope chestpiece"><br><sub><b>The device</b> with the stethoscope chestpiece and sealed microphone tubing</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="docs/images/prototype_inside.jpg" alt="Inside the enclosure"><br><sub><b>Inside the enclosure:</b> ESP32-S3, MPU6050 and XL1410 buck converter</sub></td>
-    <td align="center"><img src="docs/images/circuit_schematic.png" alt="Circuit schematic"><br><sub><b>Circuit schematic</b></sub></td>
+    <td align="center" width="50%"><img src="docs/images/prototype_inside.jpg" alt="Inside the enclosure"><br><sub><b>Inside the enclosure:</b> ESP32-S3, MPU6050 and XL1410 buck converter</sub></td>
   </tr>
 </table>
 
@@ -45,8 +41,6 @@ This repository contains the firmware, the receiving-computer software, the trai
 
 ## 1. How the system works
 
-<p align="center"><img src="docs/images/system_architecture.png" width="55%" alt="System architecture"></p>
-
 1. **Sensing.** The chestpiece is held at the mitral area (cardiac apex, fifth intercostal space, left midclavicular line) by an elastic garment. Sound travels through sealed tubing to the INMP441 microphone. An MPU6050 in the enclosure over the sternum measures acceleration.
 2. **Streaming.** The ESP32-S3 runs its own Wi-Fi access point (`HeartMonitor_ESP32`, IP `192.168.4.1`) and serves two TCP streams: audio on port **3333** (16 kHz, signed 16-bit) and motion on port **3334** (50 Hz).
 3. **Preprocessing.** Each window is despiked (samples above 0.95 of full scale in runs of up to three, with neighbours below 30%) and passed through a 20 to 800 Hz fourth-order zero-phase Butterworth band-pass filter.
@@ -54,9 +48,6 @@ This repository contains the firmware, the receiving-computer software, the trai
 5. **Reporting thresholds.** A label is shown only if its probability reaches the class threshold (Normal 0.50, Murmur 0.70, Extrasystole 0.50, Artifact 0.70); otherwise the window is *Uncertain*. The dashboard takes a majority vote over the last five windows and shows "Still gathering a clear signal" when the majority is Uncertain.
 6. **Cardiac parameters.** Every 15 s, a 15 s buffer is used to estimate heart rate, the systolic-to-diastolic (S/D) timing ratio, an exploratory cardiac-cycle interval variability value and a heuristic signal-quality score.
 7. **Motion.** The motion score is the standard deviation of acceleration magnitude over 2 s (100 samples). Scores are grouped as low (< 0.02 g), moderate (0.02 to 0.10 g) or high (> 0.10 g), and high motion flags the reading as less reliable. The activity state is the 3-minute average score (active above 0.03 g, resting otherwise).
-
-<p align="center"><img src="docs/images/signal_processing_pipeline.png" width="70%" alt="Signal processing pipeline"></p>
-<p align="center"><img src="docs/images/ensemble_architecture.png" width="70%" alt="Ensemble architecture"></p>
 
 ---
 
@@ -118,9 +109,7 @@ The Python scripts sit together in `cardiopulse/` because they import each other
 | MPU6050 SCL | GPIO 9 |
 | INMP441 and MPU6050 VDD / GND | 3.3 V / GND |
 
-<p align="center"><img src="docs/images/circuit_schematic.png" width="70%" alt="Circuit schematic"></p>
-<p align="center"><img src="docs/images/hardware_connections.png" width="85%" alt="Hardware connection diagram"></p>
-<p align="center"><img src="docs/images/stethoscope_assembly.png" width="55%" alt="Stethoscope and microphone assembly"></p>
+<p align="center"><img src="docs/images/hardware_connections.png" width="85%" alt="Hardware block diagram"></p>
 
 **Assembly notes**
 
@@ -329,7 +318,7 @@ All scripts are in `cardiopulse/` and are run from that folder.
 
 ## 10. Results summary
 
-All figures below are internal evaluations on PASCAL and were not obtained on recordings from the CardioPulse device.
+All results below are internal evaluations on PASCAL and were not obtained on recordings from the CardioPulse device.
 
 | Measure | Result |
 |---|---|
@@ -343,16 +332,6 @@ All figures below are internal evaluations on PASCAL and were not obtained on re
   <img src="docs/images/results_8run_overlap.png" width="90%" alt="Test accuracy and Extrasystole F1 over eight runs per overlap configuration"><br>
   <sub>Test accuracy and Extrasystole F1-score over eight runs per overlap configuration</sub>
 </p>
-<p align="center">
-  <img src="docs/images/results_confusion_matrices.png" width="90%" alt="Confusion matrices of a representative uniform-overlap model and the deployed model"><br>
-  <sub>Confusion matrices on the test split: a representative uniform-overlap model (left) and the deployed class-specific-overlap model (right)</sub>
-</p>
-<table>
-  <tr>
-    <td align="center" width="62%"><img src="docs/images/results_heart_rate.png" alt="Heart-rate estimates against ground truth"><br><sub>Heart rate against PASCAL Set A annotations (n = 21)</sub></td>
-    <td align="center" width="38%"><img src="docs/images/results_sd_ratio.png" alt="S/D ratio estimates against ground truth"><br><sub>S/D timing ratio against annotations (n = 21)</sub></td>
-  </tr>
-</table>
 
 The higher Extrasystole overlap was applied to the validation and test splits as well as training, so the two configurations differ in the number and correlation of their Extrasystole evaluation windows. The comparison should be read with this in mind.
 
