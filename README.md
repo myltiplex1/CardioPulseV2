@@ -348,7 +348,7 @@ The higher Extrasystole overlap was applied to the validation and test splits as
 
 ## 12. Thesis, citation and licence
 
-This work was carried out for the B.Sc. thesis *Design and Implementation of a Wearable Digital Stethoscope for Machine Learning Based Cardiac Diagnostics: A Stage Toward Cardiopulmonary Monitoring* by **Soyinka Enoch Oluwatimilehin** (EEG/2019/079), Department of Electronic and Electrical Engineering, Obafemi Awolowo University, Ile-Ife, Nigeria, under the supervision of **Dr. O. O. Ilori**.
+This work was carried out for the B.Sc. thesis *Design and Implementation of a Wearable Digital Stethoscope for Machine Learning Based Cardiac Diagnostics: A Stage Toward Cardiopulmonary Monitoring* by **Soyinka Enoch Oluwatimilehin**, Department of Electronic and Electrical Engineering, Obafemi Awolowo University, Ile-Ife, Nigeria.
 
 **Dataset.** P. Bentley, G. Nordehn, M. Coimbra and S. Mannor, "The PASCAL Classifying Heart Sounds Challenge 2011 (CHSC2011) Results," 2011. http://www.peterjbentley.com/heartchallenge/index.html
 
